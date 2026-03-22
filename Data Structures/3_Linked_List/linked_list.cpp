@@ -21,7 +21,7 @@ public:
         head = tail = NULL;
     }
 
-    void push_front(int val){
+    void push_front(int val){ // O(1)
         Node *newNode = new Node(val);
         // Node newNode(val); // static
         if(head == NULL) {
@@ -34,7 +34,8 @@ public:
 
     }
 
-    void push_back(int val){
+    void push_back(int val){ // using "tail" -> O(1)
+                            // Not using "taile" -> O(n)
         Node *newNode = new Node(val);
         if(head == tail){
             head = tail = newNode;
@@ -44,7 +45,7 @@ public:
         }
     }
 
-    int get_length(){
+    int get_length(){ // O(n)
         Node *itr = this->head;
         int count = 0;
         while(itr){
@@ -54,7 +55,7 @@ public:
         return count;
     }
 
-    void pop_front(){
+    void pop_front(){ // O(1)
 
         if(!head){
             cout << "Empty LinkedList\n";
@@ -66,7 +67,7 @@ public:
         delete itr;
     }
 
-    void pop_back(){
+    void pop_back(){ // O(n)
         if(!head){
             cout << "LL is empyt\n";
         }
@@ -79,7 +80,7 @@ public:
         this->tail = temp;
     }
 
-    void insert_at(int pos, int val){
+    void insert_at(int pos, int val){ //O(n)
         Node *newNode = new Node(val);
         if(pos < 0 || pos > this->get_length()){
             cout << "Invalid position" << "\n";
@@ -104,25 +105,21 @@ public:
 
     }
 
-    int search(int val){
+    int search(int val){ // O(n)
         Node *itr = this->head;
         int count = 0;
 
         while(itr){
             if(itr->data == val){
-                break;
+                return count+1;
             } 
             itr = itr->next;
             count++;
         }
-        
-        if(count >= this->get_length()){
-            return -1;
-        }
-        return count+1;
+        return -1;
     }
 
-    void print(){
+    void print(){ // O(n)
         Node *itr = this->head;
         while (itr){
             cout << itr->data << " -> ";

@@ -44,6 +44,16 @@ public:
         }
     }
 
+    int get_length(){
+        Node *itr = this->head;
+        int count = 0;
+        while(itr){
+            count++;
+            itr = itr->next;
+        }
+        return count;
+    }
+
     void pop_front(){
 
         if(!head){
@@ -69,6 +79,49 @@ public:
         this->tail = temp;
     }
 
+    void insert_at(int pos, int val){
+        Node *newNode = new Node(val);
+        if(pos < 0 || pos > this->get_length()){
+            cout << "Invalid position" << "\n";
+        }
+
+        if(pos == 0){
+            push_front(val);
+            return;
+        }
+
+        int count = 0;
+        Node *itr = this->head;
+        while(itr){
+            if(count == pos-1){
+                newNode->next = itr->next;
+                itr->next = newNode;
+                break;
+            }
+            itr = itr->next;
+            count++;
+        }
+
+    }
+
+    int search(int val){
+        Node *itr = this->head;
+        int count = 0;
+
+        while(itr){
+            if(itr->data == val){
+                break;
+            } 
+            itr = itr->next;
+            count++;
+        }
+        
+        if(count >= this->get_length()){
+            return -1;
+        }
+        return count+1;
+    }
+
     void print(){
         Node *itr = this->head;
         while (itr){
@@ -87,6 +140,7 @@ int main(){
     ll.push_front(25);
     ll.push_back(60);
     ll.print();
+    ll.get_length();
     cout << endl;
     
     ll.pop_front();
@@ -95,5 +149,10 @@ int main(){
 
     ll.pop_back();
     ll.print();
+
+    ll.insert_at(1, 10);
+    ll.print();
+
+    cout << ll.search(50) << endl;
     return 0;
 }
